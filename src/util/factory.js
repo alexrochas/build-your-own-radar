@@ -20,7 +20,7 @@ const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 
 const plotRadar = function (title, blips) {
-    document.title = title;
+    document.title = "Custom Tech Radar";
     d3.selectAll(".loading").remove();
 
     var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
@@ -164,10 +164,11 @@ const FileName = function (url) {
 
 const GoogleSheetInput = function () {
     var self = {};
-    
+
     self.build = function () {
-        var domainName = DomainName(window.location.search.substring(1));
-        var queryParams = QueryParams(window.location.search.substring(1));
+        var sheet = "sheetId=" + window.location.origin + "/techRadar.csv";
+        var domainName = DomainName(sheet);
+        var queryParams = QueryParams(sheet);
 
         if (domainName && queryParams.sheetId.endsWith('csv')) {
             var sheet = CSVDocument(queryParams.sheetId);
